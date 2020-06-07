@@ -1,27 +1,17 @@
 {
-  "name": "template__project-app",
+  "name": "postedbackend",
   "version": "1.0.0",
-  "description": "Template project to be deployed to the cluster",
+  "description": "",
   "main": "src/index.js",
   "scripts": {
-    "start": "./node_modules/node/bin/node ./node_modules/nodemon/bin/nodemon.js src/index.js",
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "start": "nodemon src/index.js"
   },
   "dependencies": {
-    "node": "12.16.3"
+    "express": "4.17.1",
+    "mongodb": "3.5.7"
   },
   "devDependencies": {
-    "nodemon": "1.18.4",
-    "node": "12.16.3"
+    "nodemon": "1.18.4"
   },
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/dev-launchers-sandbox/template__project-app.git"
-  },
-  "author": "",
-  "license": "ISC",
-  "bugs": {
-    "url": "https://github.com/dev-launchers-sandbox/template__project-app/issues"
-  },
-  "homepage": "https://github.com/dev-launchers-sandbox/template__project-app#readme"
+  "keywords": []
 }
