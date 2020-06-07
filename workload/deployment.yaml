@@ -1,28 +1,33 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  namespace: template-app
-  name: template-app
+  namespace: project-posted
+  name: project-posted
   labels:
-    app: template-app
+    app: project-posted
 spec:
   replicas: 1
   selector:
     matchLabels:
-      app: template-app
+      app: project-posted
   template:
     metadata:
       labels:
-        app: template-app
+        app: project-posted
     spec:
       containers:
-      - name: template-app
-        image: devlaunchers/template_project-app:latest
+      - name: project-posted
+        image: devlaunchers/project_posted:latest
         env:
+        - name: MONGOURL
+          valueFrom:
+            secretKeyRef:
+              name: project-posted
+              key: mongourl
         - name: PORT
-          value: "4000"
+          value: "3000"
         ports:
-        - containerPort: 4000
+        - containerPort: 3000
         resources:
           limits:
             cpu: 500m
