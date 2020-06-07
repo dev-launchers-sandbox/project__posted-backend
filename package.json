@@ -1,0 +1,27 @@
+{
+  "name": "template__project-app",
+  "version": "1.0.0",
+  "description": "Template project to be deployed to the cluster",
+  "main": "src/index.js",
+  "scripts": {
+    "start": "./node_modules/node/bin/node ./node_modules/nodemon/bin/nodemon.js src/index.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "dependencies": {
+    "node": "12.16.3"
+  },
+  "devDependencies": {
+    "nodemon": "1.18.4",
+    "node": "12.16.3"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/dev-launchers-sandbox/template__project-app.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/dev-launchers-sandbox/template__project-app/issues"
+  },
+  "homepage": "https://github.com/dev-launchers-sandbox/template__project-app#readme"
+}

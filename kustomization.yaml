@@ -1,0 +1,4 @@
+  
+namespace: template-app
+bases:
+  - ./workload

@@ -1,0 +1,32 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  namespace: template-app
+  name: template-app
+  labels:
+    app: template-app
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: template-app
+  template:
+    metadata:
+      labels:
+        app: template-app
+    spec:
+      containers:
+      - name: template-app
+        image: devlaunchers/template_project-app:latest
+        env:
+        - name: PORT
+          value: "4000"
+        ports:
+        - containerPort: 4000
+        resources:
+          limits:
+            cpu: 500m
+            memory: 256Mi
+          requests:
+            cpu: 100m
+            memory: 64Mi
