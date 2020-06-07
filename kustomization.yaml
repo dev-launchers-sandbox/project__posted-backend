@@ -1,4 +1,4 @@
   
-namespace: template-app
+namespace: project-posted
 bases:
   - ./workload
