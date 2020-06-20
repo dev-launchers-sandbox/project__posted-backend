@@ -68,11 +68,3 @@ spec:
           requests:
             cpu: 10m
             memory: 16Mi
-        livenessProbe:
-          httpGet:
-            path: /metrics
-            port: 5000
-          initialDelaySeconds: 60
-          periodSeconds: 10
-          timeoutSeconds: 10
-          failureThreshold: 5
