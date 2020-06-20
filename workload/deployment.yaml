@@ -51,6 +51,8 @@ spec:
         args:
         - --url=http://localhost:3000
         - --metrics=:5000
+        - --proxy-tls-timeout=60s
+        - --proxy-connect-timeout=60s
         - --no-autoupdate
         env:
         - name: POD_NAME
