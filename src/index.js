@@ -2,6 +2,8 @@ const express = require("express");
 
 const { MongoClient } = require("mongodb");
 
+const promClient = require('prom-client');
+
 const app = express();
 
 // Replace the following with your Atlas connection string
@@ -84,15 +86,20 @@ const articles = [
   }
 ];
 
+const metrics = registerMetrics();
+
 app.get("/", (req, res) => {
+  metrics.routesCount.inc({ route: "root" });
   res.send("Hello Node !!!!");
 });
 
 app.get("/api/blog", (req, res) => {
+  metrics.routesCount.inc({ route: "blog" });
   res.send(articles);
 });
 
 app.get("/api/blog/:id", (req, res) => {
+  metrics.routesCount.inc({ route: "specific_blog" });
   //get the article that matches with the url params
   const article = articles.find(
     article => article.id === parseInt(req.params.id, 0)
@@ -104,6 +111,28 @@ app.get("/api/blog/:id", (req, res) => {
   }
 });
 
+app.get('/metrics', (req, res) => {
+  res.set('Content-Type', metrics.register.contentType);
+  res.end(metrics.register.metrics());
+});
+
 const port = process.env.PORT || 3000;
 
 app.listen(port, () => console.log(`Listening on port ${port}...`));
+
+function registerMetrics() {
+  const collectDefaultMetrics = promClient.collectDefaultMetrics;
+  const Registry = promClient.Registry;
+  const register = new Registry();
+  collectDefaultMetrics({ register });
+  const routesCount = new promClient.Counter({
+    name: 'routes_count',
+    help: 'Request count for each route',
+    labelNames: ['route'],
+  });
+  register.registerMetric(routesCount);
+  return {
+    register: register,
+    routesCount: routesCount,
+  }
+}
