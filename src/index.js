@@ -2,7 +2,7 @@ const express = require("express");
 
 const { MongoClient } = require("mongodb");
 
-const promClient = require('prom-client');
+const promClient = require("prom-client");
 
 const app = express();
 
@@ -20,11 +20,29 @@ const client = new MongoClient(
 
 client.connect(err => {
   if (err) {
-    console.log(
-      `error has occured while trying to connect to mongodb atlas ${err}`
-    );
+    console.error(err);
+  } else {
+    console.log("connected.....");
   }
-  console.log("connected...");
+  const db = client.db("posted");
+
+  db.createCollection("article");
+  db.collection("article").insertOne({
+    alt: "new image alt",
+    id: 1,
+    key: 1,
+    title: "title",
+    href:
+      "https://www.google.com/url?sa=i&url=https%3A%2F%2Fwww.facebook.com%2Fminecraft%2F&psig=AOvVaw1jIsHQ5y0dHluulfR2BsBV&ust=1589268814797000&source=images&cd=vfe&ved=0CAIQjRxqFwoTCIiPyuylq-kCFQAAAAAdAAAAABAD",
+    subTitle: "subTitle",
+    body: "body",
+    link: "/blog"
+  });
+
+  const article = db.collection("article").find({ title: "title" });
+
+  console.log("document: ", article);
+
   const collection = client.db("test").collection("devices");
   // perform actions on the collection object
   client.close();
@@ -111,9 +129,13 @@ app.get("/api/blog/:id", (req, res) => {
   }
 });
 
-app.get('/metrics', (req, res) => {
-  res.set('Content-Type', metrics.register.contentType);
+app.get("/metrics", (req, res) => {
+  res.set("Content-Type", metrics.register.contentType);
   res.end(metrics.register.metrics());
+});
+
+app.post("/api/blogs", (req, res) => {
+  res.send("hitting post endpoint");
 });
 
 const port = process.env.PORT || 3000;
@@ -126,13 +148,13 @@ function registerMetrics() {
   const register = new Registry();
   collectDefaultMetrics({ register });
   const routesCount = new promClient.Counter({
-    name: 'routes_count',
-    help: 'Request count for each route',
-    labelNames: ['route'],
+    name: "routes_count",
+    help: "Request count for each route",
+    labelNames: ["route"]
   });
   register.registerMetric(routesCount);
   return {
     register: register,
-    routesCount: routesCount,
-  }
+    routesCount: routesCount
+  };
 }
