@@ -50,7 +50,7 @@ spec:
         command: ["cloudflared", "tunnel"]
         args:
         - --url=http://localhost:3000
-        - --metrics=localhost:5000
+        - --metrics=:5000
         - --no-autoupdate
         env:
         - name: POD_NAME
@@ -68,3 +68,11 @@ spec:
           requests:
             cpu: 10m
             memory: 16Mi
+        livenessProbe:
+          httpGet:
+            path: /metrics
+            port: 5000
+          initialDelaySeconds: 60
+          periodSeconds: 60
+          timeoutSeconds: 30
+          failureThreshold: 5
