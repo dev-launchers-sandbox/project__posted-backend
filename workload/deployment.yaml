@@ -70,10 +70,3 @@ spec:
           requests:
             cpu: 10m
             memory: 16Mi
-        livenessProbe:
-          tcpSocket:
-            port: 5000
-          initialDelaySeconds: 180
-          periodSeconds: 10
-          timeoutSeconds: 10
-          failureThreshold: 5
