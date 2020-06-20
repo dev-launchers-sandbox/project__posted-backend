@@ -30,15 +30,47 @@ spec:
         - containerPort: 3000
         resources:
           limits:
-            cpu: 500m
-            memory: 256Mi
-          requests:
             cpu: 100m
             memory: 64Mi
+          requests:
+            cpu: 25m
+            memory: 16Mi
         livenessProbe:
           httpGet:
             path: /metrics
             port: 3000
+          initialDelaySeconds: 60
+          periodSeconds: 10
+          timeoutSeconds: 10
+          failureThreshold: 5
+      - name: tunnel
+        image: devlaunchers/sidecar:init
+        ports:
+        - containerPort: 5000
+        command: ["cloudflared", "tunnel"]
+        args:
+        - --url=http://localhost:3000
+        - --metrics=localhost:5000
+        env:
+        - name: POD_NAME
+          valueFrom:
+            fieldRef:
+              fieldPath: metadata.name
+        - name: POD_NAMESPACE
+          valueFrom:
+            fieldRef:
+              fieldPath: metadata.namespace
+        resources:
+          limits:
+            cpu: 10m
+            memory: 16Mi
+          requests:
+            cpu: 10m
+            memory: 16Mi
+        livenessProbe:
+          httpGet:
+            path: /metrics
+            port: 5000
           initialDelaySeconds: 60
           periodSeconds: 10
           timeoutSeconds: 10
