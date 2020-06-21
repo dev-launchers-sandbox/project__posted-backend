@@ -67,6 +67,8 @@ spec:
           value: project-posted
         - name: TUNNEL_METRICS_URL
           value: "http://localhost:5000/metrics"
+        - name: UPDATE_TIMEOUT
+          value: "120s"
         - name: MAPPER_TOKEN
           valueFrom:
             secretKeyRef:
@@ -79,11 +81,11 @@ spec:
               key: mapper-url
         resources:
           limits:
-            cpu: 10m
-            memory: 16Mi
+            cpu: 40m
+            memory: 64Mi
           requests:
-            cpu: 10m
-            memory: 16Mi
+            cpu: 20m
+            memory: 32Mi
         startupProbe:
           exec:
             command:
