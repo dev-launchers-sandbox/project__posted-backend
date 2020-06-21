@@ -65,7 +65,7 @@ spec:
               fieldPath: metadata.namespace
         - name: APP_NAME
           value: project-posted
-        - name: TUNNEL_METRICS_PORT
+        - name: TUNNEL_METRICS_URL
           value: "http://localhost:5000/metrics"
         - name: MAPPER_TOKEN
           valueFrom:
