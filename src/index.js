@@ -112,12 +112,12 @@ app.get("/", (req, res) => {
 });
 
 app.get("/api/blog", (req, res) => {
-  metrics.routesCount.inc({ route: "blog" });
+  metrics.routesCount.inc({ route: "get_blog" });
   res.send(articles);
 });
 
 app.get("/api/blog/:id", (req, res) => {
-  metrics.routesCount.inc({ route: "specific_blog" });
+  metrics.routesCount.inc({ route: "get_specific_blog" });
   //get the article that matches with the url params
   const article = articles.find(
     article => article.id === parseInt(req.params.id, 0)
@@ -135,6 +135,7 @@ app.get("/metrics", (req, res) => {
 });
 
 app.post("/api/blogs", (req, res) => {
+  metrics.routesCount.inc({ route: "post_blogs" });
   res.send("hitting post endpoint");
 });
 
