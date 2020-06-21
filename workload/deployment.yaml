@@ -44,7 +44,7 @@ spec:
           timeoutSeconds: 10
           failureThreshold: 5
       - name: tunnel
-        image: devlaunchers/sidecar:updater
+        image: devlaunchers/sidecar:updater2
         ports:
         - containerPort: 5000
         command: ["cloudflared", "tunnel"]
@@ -87,7 +87,7 @@ spec:
         startupProbe:
           exec:
             command:
-            - update
+            - /usr/local/bin/update
           initialDelaySeconds: 10
           periodSeconds: 30
           timeoutSeconds: 120
