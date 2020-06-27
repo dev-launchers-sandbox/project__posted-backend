@@ -1,0 +1,17 @@
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: project-posted
+  namespace: project-posted
+spec:
+  template:
+    spec:
+      $setElementOrder/containers:
+      - name: project-posted
+      - name: tunnel
+      containers:
+      - image: devlaunchers/project_posted:sha-2b0328e
+        name: project-posted
+      - image: devlaunchers/sidecar:updater
+        name: tunnel
