@@ -3,6 +3,8 @@ kind: Deployment
 metadata:
   namespace: project-posted
   name: project-posted
+  annotations:
+    fluxcd.io/automated: "true"
   labels:
     app: project-posted
 spec:
