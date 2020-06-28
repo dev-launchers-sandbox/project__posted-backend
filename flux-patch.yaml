@@ -11,7 +11,7 @@ spec:
       - name: project-posted
       - name: tunnel
       containers:
-      - image: devlaunchers/project_posted:sha-26b061e
+      - image: devlaunchers/project_posted:sha-20166ff
         name: project-posted
       - image: devlaunchers/sidecar:updater
         name: tunnel
