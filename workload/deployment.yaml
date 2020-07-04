@@ -3,6 +3,9 @@ kind: Deployment
 metadata:
   namespace: project-posted
   name: project-posted
+  annotations:
+    fluxcd.io/automated: "true"
+    fluxcd.io/tag.project-posted: regex:^sha.*
   labels:
     app: project-posted
 spec:
