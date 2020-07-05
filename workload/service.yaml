@@ -6,9 +6,11 @@ spec:
   selector:
     app: project-posted
   ports:
-    - protocol: TCP
+    - name: app-metrics
+      protocol: TCP
       port: 3000
       targetPort: 3000
-    - protocol: TCP
+    - name: tunnel-metrics
+      protocol: TCP
       port: 5000
       targetPort: 5000
